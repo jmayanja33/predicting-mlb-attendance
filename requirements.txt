@@ -5,3 +5,5 @@ xgboost
 pyyaml
 zipfile36
 tqdm
+matplotlib
+scikit-optimize
