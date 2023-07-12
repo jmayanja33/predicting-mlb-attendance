@@ -1,0 +1,3 @@
+- Best Params: {'gamma': 2, 'learning_rate': 0.4, 'max_depth': 7, 'n_estimators': 100}
+- Training RMSE: 53.381432757853645
+- Test RMSE: 340267.6842656583
