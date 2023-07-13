@@ -1,3 +1,4 @@
-- Best Params: {'gamma': 2, 'learning_rate': 0.4, 'max_depth': 7, 'n_estimators': 100}
-- Training RMSE: 53.381432757853645
-- Test RMSE: 340267.6842656583
+- Selected Features: ['Dome', 'Households $35,000 to $49,999', 'Households $50,000 to $74,999', 'Households $200,000 or More', 'Households Household Income in the Past 12 Months', 'Families $75,000 to $99,999', 'Families $100,000 to $149,999', 'Families Family Income in the Past 12 Months', 'Married-Couple Families', 'Married-Couple Families Less Than $10,000', 'Married-Couple Families $25,000 to $34,999', 'Married-Couple Families $75,000 to $99,999', 'Nonfamily Households', 'Nonfamily Households $50,000 to $74,999', 'Nonfamily Households Nonfamily Income in the Past 12 Months']
+- Best Params: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 400}
+- Training RMSE: 14138.900806064106
+- Test RMSE: 268577.7372373305

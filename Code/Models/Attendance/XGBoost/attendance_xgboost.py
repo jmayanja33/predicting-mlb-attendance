@@ -20,6 +20,15 @@ print("- Removing unnecessary features from data (margin of error columns)")
 train_cols = [col for col in training_df.columns if "Margin of Error" not in col]
 test_cols = [col for col in test_df.columns if "Margin of Error" not in col]
 
+# Remove teams with 2 markets
+full_data = full_data[full_data["Year"] != 2020]
+full_data = full_data[full_data["NumTeams"] == 1]
+full_data.reset_index()
+training_df = training_df[training_df["NumTeams"] == 1]
+training_df.reset_index()
+test_df = test_df[test_df["NumTeams"] == 1]
+test_df.reset_index()
+
 # Extract features and targets from each set
 X_train, y_train = training_df[train_cols].drop(['Attendance', 'Valuation', 'Market', 'Year'], axis=1), training_df[['Attendance']]
 X_test, y_test = test_df[test_cols].drop(['Attendance', 'Valuation', 'Market', 'Year'], axis=1), test_df[['Attendance']]
@@ -32,15 +41,33 @@ feature_model.fit(full_data[train_cols].drop(['Attendance', 'Valuation', 'Market
 # Find and plot feature importance
 print("- Plotting feature importance")
 feature_importance = sorted(feature_model.feature_importances_, reverse=True)
-plt.scatter(range(1, len(feature_importance)), feature_importance[1:])
+plt.scatter(range(0, len(feature_importance)), feature_importance)
 plt.xlabel("Feature Number")
 plt.ylabel("Importance")
 plt.title("Attendance XGB Model Feature Importance")
+# plt.show()
 plt.savefig(f"{ROOT_PATH}/Visualizations/AttendanceXGBFeatureImportance.png")
+
+# Plot zoomed feature importance with names
+# Create ordered dictionary of feature importance
+importance_vals = feature_model.feature_importances_
+importance_dict = dict(sorted({feature_model.feature_names_in_[i]: importance_vals[i] for i in range(len(importance_vals))}.items(),
+                              key=lambda x: x[1], reverse=True))
+plt.scatter(range(0, 25), feature_importance[0:25])
+x_ticks = list(importance_dict.keys())[0:25]
+plt.xticks(range(0, 25), x_ticks, rotation=270)
+plt.xlabel("Feature")
+plt.ylabel("Importance")
+# plt.show()
+plt.savefig(f"{ROOT_PATH}/Visualizations/AttendanceXGBFeatureImportanceTop25.png")
 
 # Select features using threshold of 25
 print("- Filtering data to only include selected features")
-significant_features = SelectFromModel(feature_model, threshold=0.01, prefit=True)
+significant_features = SelectFromModel(feature_model, threshold=0.02, prefit=True)
+significant_feature_names = [X_train.columns[i] for i in significant_features.get_support(indices=True)]
+# significant_feature_cols = {str(i): X_train.columns[i] for i in significant_features.get_support(indices=True)}
+
+# Update X_train and X_test with selected features
 X_train = significant_features.transform(X_train)
 X_test = significant_features.transform(X_test)
 
@@ -55,7 +82,6 @@ param_tuning = {
     "learning_rate": np.arange(0.1, 1, 0.1),
     "n_estimators": np.arange(100, 1000, 100),
     # "colsample_bytree": np.arange(0.1, 1.1, 0.1),
-    # "subsample": np.arange(0.1, 1.1, 0.1),
     "gamma": np.arange(0, 5)
 }
 
@@ -84,5 +110,5 @@ final_model.save_model("AttendanceXGBoostModel.json")
 
 # Write file to save stats
 file = open('AttendanceXGBEval.txt', 'w')
-file.write(f"- Best Params: {best_params}\n- Training RMSE: {train_rmse}\n- Test RMSE: {test_rmse}")
+file.write(f"- Selected Features: {significant_feature_names}\n- Best Params: {best_params}\n- Training RMSE: {train_rmse}\n- Test RMSE: {test_rmse}")
 file.close()
