@@ -52,7 +52,7 @@ X_test, y_test = test_df[test_cols].drop(['Attendance', 'Valuation', 'Market', '
 
 # Create model with no training data to find feature importance
 print("- Training XGB model on whole data set to find feature importance")
-feature_model = XGBRegressor()
+feature_model = XGBRegressor(seed=33)
 feature_model.fit(full_data[train_cols].drop(['Attendance', 'Valuation', 'Market', 'Year'], axis=1), full_data[["Attendance"]])
 
 # Find and plot feature importance
