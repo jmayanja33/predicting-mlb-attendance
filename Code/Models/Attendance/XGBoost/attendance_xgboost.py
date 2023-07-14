@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 import yaml
 import xgboost as xgb
+import dataframe_image as dfi
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.feature_selection import SelectFromModel
@@ -62,27 +63,11 @@ plt.xlabel("Feature Number")
 plt.ylabel("Importance")
 plt.title("Attendance XGB Model Feature Importance")
 plt.savefig(f"{ROOT_PATH}/Visualizations/AttendanceXGBFeatureImportance.png")
-plt.show()
-
-# Plot zoomed feature importance with names
-# Create ordered dictionary of feature importance
-importance_vals = feature_model.feature_importances_
-importance_dict = dict(sorted({feature_model.feature_names_in_[i]: importance_vals[i] for i in range(len(importance_vals))}.items(),
-                               key=lambda x: x[1], reverse=True))
-plt.scatter(range(0, 25), feature_importance[0:25])
-x_ticks = list(importance_dict.keys())[0:25]
-plt.xticks(range(0, 25), x_ticks, rotation=270)
-plt.xlabel("Feature")
-plt.ylabel("Importance")
-plt.title("Attendance XGB Model Importance of Top 25 Features")
-plt.savefig(f"{ROOT_PATH}/Visualizations/AttendanceXGBFeatureImportanceTop25.png")
-# plt.show()
 
 # Select features using threshold of 25
 print("- Filtering data to only include selected features")
 significant_features = SelectFromModel(feature_model, threshold=0.02, prefit=True)
 significant_feature_names = [X_train.columns[i] for i in significant_features.get_support(indices=True)]
-# significant_feature_cols = {X_train.columns[i]: i for i in significant_features.get_support(indices=True)}
 
 # Update X_train and X_test with selected features
 X_train = significant_features.transform(X_train)
@@ -143,13 +128,18 @@ file.write(f"""- Selected Features: {significant_feature_names}
 file.close()
 
 # Write feature names to a file
+print("- Writing feature names and importance to a file")
 with open("XGBoost/feature_names.pkl", "wb") as pklfile:
     pickle.dump(significant_feature_names, pklfile)
     pklfile.close()
 
-# Write feature importances to a file
-importance_dict = dict(sorted({feature_model.feature_names_in_[i]: str(importance_vals[i]) for i in range(len(importance_vals))}.items(),
-                               key=lambda x: x[1], reverse=True))
-ymlfile = open("XGBoost/feature_importances.yml", 'w')
-yaml.dump(importance_dict, ymlfile)
-ymlfile.close()
+# Create ordered dictionary of feature importance and write to file
+importance_vals = feature_model.feature_importances_
+importance_dict = dict(sorted({feature_model.feature_names_in_[i]: importance_vals[i] for i in range(len(importance_vals))}.items(),
+                              key=lambda x: x[1], reverse=True))
+
+importance_df = pd.DataFrame([(feature, importance_dict[feature]) for feature in importance_dict.keys()],
+                             columns=["Feature", "Importance"])
+importance_df = importance_df[importance_df["Importance"] >= 0.02]
+importance_df.index += 1
+dfi.export(importance_df, f"{ROOT_PATH}/Visualizations/SelectedFeatureImportance.png")
