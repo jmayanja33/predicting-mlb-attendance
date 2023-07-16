@@ -5,6 +5,7 @@ library("corrplot")
 library("caret")
 library("stats")
 library("MASS") 
+library("ggplot2")
 
 # Import dataframes
 train <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TrainingSet.csv?token=GHSAT0AAAAAAAACXHOOOXLN47K5KJVZCKLCZFUIGTQ"
@@ -178,3 +179,12 @@ highest_projected_attendance <- predict_df_new %>%
 # Selecting Top 5 Project Markets
 head(highest_projected_attendance[order(highest_projected_attendance$Projected_Average, 
                                         decreasing = TRUE), ], n = 5)
+highest_projected_attendance <- data.frame(highest_projected_attendance[order(highest_projected_attendance$Projected_Average, 
+                                                                              decreasing = TRUE), ])
+
+# Plotting Final Results
+ggplot(data = highest_projected_attendance, aes(x = reorder(Market, -Projected_Average), 
+  y = Projected_Average)) +
+  geom_bar(stat = "identity", fill='blue') +
+  theme(axis.text.x = element_text(angle=90, size = 8)) +
+  labs(x = "Market", y = "Projected Attendance") 
