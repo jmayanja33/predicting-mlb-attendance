@@ -8,3 +8,6 @@
 - Test RMSE: 268577.7372373305
 - Test R-squared: 0.8316079882675967
 - Test Adj R-Squared: 0.7344587507296718
+
+- Average MLB Per Game Attendance: 27250.0
+- RMSE per Game: 3315.774533794204
