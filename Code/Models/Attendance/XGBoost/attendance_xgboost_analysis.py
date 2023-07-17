@@ -34,6 +34,7 @@ new_attendance_df_copy = new_attendance_df.rename(columns={"Predicted Attendance
 full_attendance_df = pd.concat([current_attendance_df, new_attendance_df_copy], axis=0)
 full_attendance_df = full_attendance_df.sort_values(by="Attendance", ascending=False)
 full_attendance_df.reset_index(inplace=True, drop=True)
+full_attendance_df.index += 1
 
 # ANALYTICS FOR ONLY NEW MARKETS #
 
@@ -41,10 +42,11 @@ full_attendance_df.reset_index(inplace=True, drop=True)
 print("- Analyzing predictions")
 new_attendance_df = new_attendance_df.sort_values(by="Predicted Attendance", ascending=False)
 new_attendance_df.reset_index(inplace=True, drop=True)
+new_attendance_df.index += 1
 
 # Calculate place scores for predictions
 place_dict = dict()
-for i in range(len(new_attendance_df)):
+for i in range(1, len(new_attendance_df)):
     market = new_attendance_df["Market"][i]
     dome = new_attendance_df["Dome"][i]
     if market not in place_dict.keys():
@@ -88,7 +90,7 @@ plt.savefig(f"{ROOT_PATH}/Visualizations/AttendanceXGBNewMarketPlot.png")
 # Calculate place scores for predictions
 print("- Comparing predictions to current market data")
 full_place_dict = dict()
-for i in range(len(full_attendance_df)):
+for i in range(1, len(full_attendance_df)):
     market = full_attendance_df["Market"][i]
     dome = full_attendance_df["Dome"][i]
     if market not in full_place_dict.keys():
