@@ -1,6 +1,11 @@
 
 scratch.py
 .DS_Store
+No2021AttendanceXGBEval.txt
+No2021AttendanceXGBoostModel.json
+No2021featue_names.pkl
+No2021AttendanceXGBFeatureImportance.png
+No2021feature_names.pkl
 
 # History files
 .Rhistory
@@ -12,7 +17,7 @@ scratch.py
 # User-specific files
 .Ruserdata
 
-# Example code in package build process
+# Example code in packa`ge build process
 *-Ex.R
 
 # Output files from R CMD build
