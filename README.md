@@ -31,7 +31,7 @@ The main file is `attendance_xgboost.py` which creates an XGBoost model. The scr
 
 Predictions using this model for new market yearly attendance are made in `predict_attendance_xgboost.py`, and saved in `Data/Predictions/PredictedNewMarketAttendanceXGBoost.csv`.
 
-Analysis is performed in `attendance_xgboost_analysis.py`. Creates tables and graphs stored in `Visualizations` that analyze predicted new market performance. Also calculates place scores, which is the sum of the placing of a market's attendance each year (for example, if a market placed first in attendance all 10 years, it's place score would be 10).
+Analysis is performed in `attendance_xgboost_analysis.py` which creates tables and graphs (stored in `Visualizations`) that analyze predicted new market performance. Also calculates place scores, which are the sum of the placing of a market's attendance each year (ex, if a market placed first in attendance all 10 years, it's place score would be 10).
 
 ## Deep Learning Model
 Code Description
