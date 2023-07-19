@@ -95,9 +95,8 @@ ggplot(data = new_market, aes(x= 1:nrow(new_market), y = Attendance, color = Siz
     label=new_market$Market, 
     nudge_x = 0.25, nudge_y = 0.25
   ) +
+  ylim(1000000,3700000) +
   xlab("New Market #") +
   ylab("Predicted Attendance")
-
-
 
                
