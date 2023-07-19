@@ -8,3 +8,4 @@ tqdm
 matplotlib
 scikit-optimize
 dataframe-image
+tensorflow

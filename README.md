@@ -18,6 +18,9 @@ This data is then all put together with `clean_data.py` which creates two csv fi
 
 Finally `split_data.py` splits these two csv files into a training and a test set using a rotation. 70% of the data went to the training set, and the remaining 30% to the test set. The training and test sets can be found in `Data/SplitData`. 
 
+## Attendance Clustering
+Code Description
+
 ## Location Clustering
 All data in this section can be found in `Models/Clustering`.
 
@@ -36,7 +39,4 @@ Predictions using this model for new market yearly attendance are made in `predi
 Analysis is performed in `attendance_xgboost_analysis.py` which creates tables and graphs (stored in `Visualizations`) that analyze predicted new market performance. Also calculates place scores, which are the sum of the placing of a market's attendance each year (ex, if a market placed first in attendance all 10 years, it's place score would be 10).
 
 ## Deep Learning Model
-Code Description
-
-## Attendance Clustering
 Code Description
