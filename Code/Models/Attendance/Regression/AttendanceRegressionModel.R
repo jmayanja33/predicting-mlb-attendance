@@ -156,6 +156,7 @@ highest_projected_attendance <- predict_df_new %>%
   group_by(Market) %>% 
   summarize(Projected_Average = mean(Predicted_Attendance))
 
+# Calculating Average Attendance per Game per New Market
 highest_projected_attendance$Projected_Average_Per_Game <- highest_projected_attendance$Projected_Average / 162
 
 # Selecting Top 5 Project Markets
@@ -177,4 +178,5 @@ ggplot(data = highest_projected_attendance, aes(x = reorder(Market, -Projected_A
   theme(axis.text.x = element_text(angle=90, size = 8)) +
   labs(x = "Market", y = "Projected Attendance")
 
+# Writing CSV File with Final Results
 write.csv(highest_projected_attendance, "C:\\Users\\warrens\\Downloads\\projected_attendance_LM.csv")
