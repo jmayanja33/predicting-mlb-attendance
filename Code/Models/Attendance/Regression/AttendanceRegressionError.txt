@@ -1,5 +1,7 @@
 MAE: 678492.7
+MAE per Game: 4188.22654321
 RMSE: 831613.2
+RMSE per Game: 5133.41481481
 Residual standard error: 819100 on 194 degrees of freedom
 R^2 Value With Test Data: 0.6338244
 R^2 Value With Training Data: 0.6192
