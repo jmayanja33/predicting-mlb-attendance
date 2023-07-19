@@ -29,11 +29,11 @@ The file `Clustering Market by Attendance.R` creates the cluster markets by atte
 ## Linear Regression Model
 All data for this section can be found in `Models/Attendance/Regression`.
 
-The model is titled as `AttendanceRegressionModel.R` which is a Multiple Regression model. The code utilizes the testing and training datasets found in the `Data/SplitData` file and then predictions are performed on the `Data/CSVData/cleaned_new_markets_data.csv` file. The model selects the variables with highest correlation between the predictor, Attendance variable, and the attributes in our training data. It then performs Principal Component Analysis to compress the highly correlated multidimensional dataframe. From there, the model is created using the Principal Components consisting of the highest explained variance and most statistically significant components. The model's performance is stored here as well.
+The model is titled `AttendanceRegressionModel.R` which is a Multiple Regression model. The code utilizes the testing and training datasets found in the `Data/SplitData` file and then predictions are performed on the `Data/CSVData/cleaned_new_markets_data.csv` file. The script performs preprocessing on the data. The model then selects the variables with highest correlation between the predictor, Attendance variable, and the attributes in our training data. It then performs Principal Component Analysis with scaling to compress the highly correlated, multidimensional dataframe. From there, the model is created using the Principal Components consisting of the highest explained variance and most statistically significant components. The model's performance is stored here as well.
 
 Predictions for this model have been saved in `Data/Predictions/PredictedNewMarketAttendanceRegression.csv` and consist of yearly total projections and per game projections for the new markets. 
 
-Visualizations associated with analysis of the model and performance can be found `Visualizations/Regression/`. Inside this folder are final model outputs and performance as well as predicted final results.
+Visualizations associated with analysis of the model and performance can be found `Visualizations/Regression`. Inside this folder are final model outputs and performance as well as predicted final results.
 
 ## XGBoost Model
 All data in this section can be found in `Models/Attendance/XGBoost`.
