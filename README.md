@@ -19,7 +19,9 @@ This data is then all put together with `clean_data.py` which creates two csv fi
 Finally `split_data.py` splits these two csv files into a training and a test set using a rotation. 70% of the data went to the training set, and the remaining 30% to the test set. The training and test sets can be found in `Data/SplitData`. 
 
 ## Location Clustering
-Code Description
+All data in this section can be found in `Models/Clustering`.
+
+The file `Clustering Market by Attendance.R` creates the cluster markets by attendance, using K-means clustering and the elbow method and produces plots for visualisation of the cluster markets
 
 ## Linear Regression Model
 Code Description

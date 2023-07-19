@@ -4,7 +4,7 @@ library("ggplot2")
 
 
 # Import dataframs
-current <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/CSVData/cleaned_current_markets_data.csv?token=GHSAT0AAAAAAAACXGNNZYYXCYS5IRGDKJGUZFU5OVA"
+current <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/CSVData/cleaned_current_markets_data.csv?token=GHSAT0AAAAAAAACXGNMB6MSQIXXOJYGF2BMZFXIJRQ"
 current_market <- read_csv(url(current)) # Selecting current market dataframe
 current_market <- as.data.frame(current_market)
 
