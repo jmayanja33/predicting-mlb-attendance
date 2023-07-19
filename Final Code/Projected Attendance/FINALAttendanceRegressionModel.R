@@ -8,11 +8,15 @@ library("MASS")
 library("ggplot2")
 
 # Import dataframes
-train <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TrainingSet.csv?token=GHSAT0AAAAAAAACXGRYKLG7KTBVHX7AY2EKZFYBKXQ"
-train_df <- read_csv(url(train)) # Selecting training dataframe
+# Data/SplitData/TrainingSet.csv
+# train_URL <- "INPUT CURRENT RAW LINK TO GITHUB URL TRAINING DATA HERE"
+# train_URL <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TrainingSet.csv?token=GHSAT0AAAAAAAACXGRYO2IHJQM3RTM57KLOZFYIS6Q"
+train_df <- read_csv(url(train_URL)) # Selecting training dataframe
 
-test <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TestSet.csv?token=GHSAT0AAAAAAAACXGRZNYGKSXNRO4NQC6LEZFYBVNQ"
-test_df <- read_csv(url(test)) # Selecting test dataframe
+# Data/SplitData/TestSet.csv
+# test_URL <- "INPUT CURRENT RAW LINK TO GITHUB URL TEST DATA HERE"
+# test_URL <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TestSet.csv?token=GHSAT0AAAAAAAACXGRZKJDLIJECMEHNVFVQZFYITIA"
+test_df <- read_csv(url(test_URL)) # Selecting test dataframe
 
 # Filtering out COVID year, error columns
 
@@ -22,7 +26,7 @@ train_df <- train_df %>%
   dplyr::select(-contains("Mean")) %>%                       # Selecting Median Columns
   dplyr::select(-contains("Past")) %>%                       # Removing Past 12 Months Data
   dplyr::select(-c(Market, Year, Dome, NumTeams, Valuation))  # Removing Extraneous Data
-  
+
 test_df <- test_df %>%
   filter(Year != 2020) %>%                                   # Removing COVID Year
   dplyr::select(-contains("Error")) %>%                      # Removing Error Columns
@@ -62,7 +66,8 @@ test_df_x <- data.frame(test_df  %>%
                           dplyr::select(c(row.names(columns))) %>% 
                           dplyr::select(-"Attendance")) # Selecting x values
 
-test_df_y <- test_df %>% dplyr::select("Attendance") # Selecting y value
+test_df_y <- test_df %>% 
+  dplyr::select("Attendance") # Selecting y value
 
 # Reduce dimensionality and correlation with PCA
 PCA <- prcomp(x, scale=TRUE) # Scaled data and generated PCs for selected variables
@@ -114,7 +119,9 @@ plot(residuals, main = "Residuals", xlab = "Observation", ylab = "Residuals") # 
 hist(residuals, col = "blue", main = "Residuals", xlab = "Residuals") # Normal distribution
 
 # Testing the data on new markets
-predict_url <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/CSVData/cleaned_new_markets_data.csv?token=GHSAT0AAAAAAAACXGRZF2FE7TPMVXBWSVBAZFYCCGA"
+# Data/CSVData/cleaned_new_markets_data.csv
+# predict_url <- "INPUT CURRENT RAW LINK TO GITHUB URL NEW MARKET DATA HERE"
+# predict_url <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/CSVData/cleaned_new_markets_data.csv?token=GHSAT0AAAAAAAACXGRZBBNI5GCKMQRUUBBSZFYIURA"
 predict_df <- read_csv(url(predict_url))
 
 # Filtering out COVID year, error columns
@@ -146,7 +153,8 @@ predictions <- predict(lm_model, newdata = transformed_data) # Predicting on our
 
 # Create a new column for our predicted attendance
 predict_df_new <- read_csv(url(predict_url))
-predict_df_new <- predict_df_new %>% filter(Year != 2020) %>%
+predict_df_new <- predict_df_new %>% 
+  filter(Year != 2020) %>%
   dplyr::select(-c(Dome, NumTeams))
 
 predict_df_new$Predicted_Attendance <- predictions # Creating new dataframe with our predicted attendance
@@ -156,6 +164,7 @@ highest_projected_attendance <- predict_df_new %>%
   group_by(Market) %>% 
   summarize(Projected_Average = mean(Predicted_Attendance))
 
+# Calculating Average Attendance per Game per New Market
 highest_projected_attendance$Projected_Average_Per_Game <- highest_projected_attendance$Projected_Average / 162
 
 # Selecting Top 5 Project Markets
@@ -177,4 +186,5 @@ ggplot(data = highest_projected_attendance, aes(x = reorder(Market, -Projected_A
   theme(axis.text.x = element_text(angle=90, size = 8)) +
   labs(x = "Market", y = "Projected Attendance")
 
-write.csv(highest_projected_attendance, "C:\\Users\\warrens\\Downloads\\projected_attendance_LM.csv")
+# Writing CSV File with Final Results
+#write.csv(highest_projected_attendance, "FILEPATH")
