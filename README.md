@@ -27,7 +27,7 @@ All data in this section can be found in `Models/Clustering`.
 The file `Clustering Market by Attendance.R` creates the cluster markets by attendance, using K-means clustering and the elbow method and produces plots for visualisation of the cluster markets
 
 ## Linear Regression Model
-All data for this section can be found in `Models/Attendance/Regression`.
+All data for this section can be found in `Models/Attendance/Regression`. The final model and code associated is deployed in `Final Code/Projected Attendance/FINALAttendanceRegressionModel.R.
 
 The model is titled `AttendanceRegressionModel.R` which is a Multiple Regression model. The code utilizes the testing and training datasets found in the `Data/SplitData` file and then predictions are performed on the `Data/CSVData/cleaned_new_markets_data.csv` file. The script performs preprocessing on the data. The model then selects the variables with highest correlation between the predictor, Attendance variable, and the attributes in our training data. It then performs Principal Component Analysis with scaling to compress the highly correlated, multidimensional dataframe. From there, the model is created using the Principal Components consisting of the highest explained variance and most statistically significant components. The model's performance is stored here as well.
 
