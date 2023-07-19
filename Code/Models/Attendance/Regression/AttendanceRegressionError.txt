@@ -1,0 +1,5 @@
+MAE: 678492.7
+RMSE: 831613.2
+Residual standard error: 819100 on 194 degrees of freedom
+R^2 Value With Test Data: 0.6338244
+R^2 Value With Training Data: 0.6192
