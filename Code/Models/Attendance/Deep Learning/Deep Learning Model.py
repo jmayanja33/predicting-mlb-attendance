@@ -78,7 +78,7 @@ print("R-squared: ", r2)
 
 n = test_y.shape[0]
 p = test_x.shape[1]
-adj_r2 = 1 - (1 - r2) * ((n - 1) / (n - p - 1))
+adj_r2 = 1 - (((1 - r2) * (n - 1)) / (n - p - 1))
 print("Adjusted R-squared: ", adj_r2)
 
 
@@ -88,11 +88,39 @@ new_markets_data = pd.read_csv(new_markets_url)
 print(new_markets_data.head())
 
 # New market data preprocessing
-new_markets_data_clean = new_markets_data[new_markets_data['Year'] != 2020.0]
-drop_columns = [col for col in new_markets_data_clean.columns if 'Error' in col or 'Past' in col]
+new_markets_data = new_markets_data[new_markets_data['Year'] != 2020.0]
+drop_columns = [col for col in new_markets_data.columns if 'Error' in col or 'Past' in col]
 drop_columns.extend(['Market', 'Year', 'Dome', 'NumTeams'])
-new_markets_data_clean = new_markets_data_clean.drop(columns=drop_columns)
+new_markets_data_clean = new_markets_data.drop(columns=drop_columns)
 
 # Predict
 new_predictions = model.predict(new_markets_data_clean)
-print(new_predictions)
+prediction_df = pd.DataFrame(new_predictions, columns=['Prediction'])
+prediction_df['Market'] = new_markets_data['Market']
+prediction_df['Year'] = new_markets_data['Year']
+prediction_df['Dome'] = new_markets_data['Dome']
+# print(prediction_df.shape[0])
+# print(new_markets_data_clean.shape[0])
+# print(new_markets_data.shape[0])
+# print(prediction_df)
+
+
+# Compute summary table
+grouped_df = prediction_df.groupby('Market')['Prediction'].agg([lambda x: round(x.sum()/81), 'mean', 'median']).reset_index()
+# print(grouped_df)
+grouped_df.columns = ['Market', 'Average Game Attendance', 'Average Yearly Attendance', 'Median Yearly Attendance']
+grouped_df = grouped_df.sort_values(by=['Average Game Attendance', 'Average Yearly Attendance', 'Median Yearly Attendance'], ascending=False).reset_index(drop=True)
+print(grouped_df)
+# grouped_df.to_csv('/Users/anthony_palmeri/PycharmProjects/Team-116/Code/Models/Attendance/Deep Learning/ResultsTable.csv')
+
+
+# Plot Market vs. Avg. Game Attendance
+print("- Plotting full data market vs. average game attendance")
+plt.figure(figsize=(15, 10))
+plt.bar(grouped_df["Market"], grouped_df["Average Game Attendance"])
+plt.xlabel("Market")
+plt.xticks(grouped_df["Market"], grouped_df["Market"], rotation=270)
+plt.ylabel("Average Game Attendance")
+plt.title("Current and New Market Average Game Attendance")
+plt.savefig("/Users/anthony_palmeri/PycharmProjects/Team-116/Visualizations/DeepLearningFullMarketPlot.png")
+
