@@ -5,7 +5,7 @@ Team 116:
 ## Description
 This project attempts to predict yearly attendance for MLB markets based on housing and income data from the US census between the years of 2011-2021. The year 2020 was removed, as no fans were allowed at MLB games due to the COVID-19 pandemic.
 
-All code can be found in the Final Code folder of this project.
+All code can be found in the `Final Code` folder of this project.
 
 ## Data
 All .py files in this section can be found in `Code/DataCleaning` and all csv data can be found in `Data/CSVData`.
@@ -16,10 +16,7 @@ The data came in zip codes, so each zip code had to be collected and grouped in 
 
 This data is then all put together with `clean_data.py` which creates two csv files `cleaned_current_markets_data.csv` and `cleaned_new_markets.csv`. These csv files contain all attendance, valuation, and housing/income data (the former for the current markets, and the latter for the potential new markets).
 
-Finally `split_data.py` splits these two csv files into a training and a test set using a rotation. 70% of the data went to the training set, and the remaining 30% to the test set. The training and test sets can be found in `Data/SplitData`. 
-
-## Location Clustering
-Code Description
+Finally `split_data.py` splits these two csv files into a training and a test set using a rotation. 70% of the data went to the training set, and the remaining 30% to the test set. The training and test sets can be found in `Data/SplitData`.
 
 ## Attendance Clustering
 All data in this section can be found in `Models/Clustering`.
