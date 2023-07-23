@@ -1,0 +1,7 @@
+install.packages("readr")
+install.packages("dplyr")
+install.packages("corrplot")
+install.packages("caret")
+install.packages("stats")
+install.packages("MASS")
+install.packages("ggplot2")
