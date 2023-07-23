@@ -122,5 +122,5 @@ plt.xlabel("Market")
 plt.xticks(grouped_df["Market"], grouped_df["Market"], rotation=270)
 plt.ylabel("Average Game Attendance")
 plt.title("Current and New Market Average Game Attendance")
-plt.savefig("/Users/anthony_palmeri/PycharmProjects/Team-116/Visualizations/DeepLearningFullMarketPlot.png")
-
+# plt.savefig("/Users/anthony_palmeri/PycharmProjects/Team-116/Visualizations/DeepLearningFullMarketPlot.png")
+plt.savefig("/Users/anthony_palmeri/Desktop/Georgia Tech/MGT 6203/Group Project/DeepLearningFullMarketPlot.png")
