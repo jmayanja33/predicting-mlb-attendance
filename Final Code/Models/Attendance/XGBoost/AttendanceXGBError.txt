@@ -1,0 +1,2 @@
+- Average MLB Per Game Attendance: 27250.0
+- RMSE per Game: 3315.774533794204

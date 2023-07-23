@@ -1,0 +1,181 @@
+import yaml
+import json
+from yaml import CLoader as Loader
+from root_path import ROOT_PATH
+
+# Add a new market and all zip codes
+NEW_MARKET = "Test"
+zip_codes = """68048
+68003
+68037
+68347
+68463
+68366
+68349
+68409
+68413
+68455
+68407
+68307
+68304
+68403
+68016
+68058
+68104
+68116
+68022
+68134
+68135
+68107
+68164
+68137
+68144
+68154
+68105
+68111
+68106
+68130
+68127
+68114
+68108
+68124
+68131
+68007
+68132
+68112
+68122
+68110
+68118
+68117
+68102
+68152
+68181
+68142
+68069
+68064
+68183
+68182
+68178
+68010
+68198
+68175
+68120
+68155
+68179
+68197
+68101
+68103
+68109
+68119
+68139
+68145
+68172
+68180
+68176
+68123
+68046
+68005
+68128
+68028
+68136
+68133
+68147
+68138
+68157
+68059
+68113
+68056
+68025
+68066
+68003
+68073
+68065
+68017
+68042
+68015
+68070
+68018
+68041
+68036
+68033
+68648
+68050
+68040
+68007
+68112
+68122
+68008
+68152
+68142
+68023
+68002
+68068
+68034
+68029
+68044
+68009
+51555
+51546
+51579
+51559
+51529
+51570
+51557
+51563
+51565
+51545
+51556
+51564
+51550
+51503
+51534
+51551
+51561
+51571
+51653
+51533
+51645
+51540
+51541
+51554
+51503
+51501
+51555
+51510
+51560
+51559
+51521
+51526
+51535
+51575
+51576
+51570
+51542
+51525
+51571
+51553
+51577
+51532
+51544
+51536
+51549
+51548
+51541
+51502""".split("\n")
+
+# Read yml file into dictionary
+# READ_FILE = open(f"{ROOT_PATH}/Data/ZipCodes/CurrentMarkets/currnet_market_zip_codes.yml", "r")
+READ_FILE = open(f"{ROOT_PATH}/Data/ZipCodes/NewMarkets/new_market_zip_codes.yml", "r")
+markets = yaml.load(READ_FILE, Loader)
+READ_FILE.close()
+
+# Write new zip codes into yml and json file
+markets[NEW_MARKET] = zip_codes
+# WRITE_FILE = open(f"{ROOT_PATH}/Data/ZipCodes/CurrentMarkets/current_market_zip_codes.yml", "w")
+# WRITE_FILE_JSON = open(f"{ROOT_PATH}/Data/ZipCodes/CurrentMarkets/current_market_zip_codes.json", "w")
+WRITE_FILE_YML = open(f"{ROOT_PATH}/Data/ZipCodes/NewMarkets/new_market_zip_codes.yml", "w")
+WRITE_FILE_JSON = open(f"{ROOT_PATH}/Data/ZipCodes/NewMarkets/new_market_zip_codes.json", "w")
+yaml.dump(markets, WRITE_FILE_YML)
+json.dump(markets, WRITE_FILE_JSON)
+WRITE_FILE_YML.close()
+WRITE_FILE_JSON.close()

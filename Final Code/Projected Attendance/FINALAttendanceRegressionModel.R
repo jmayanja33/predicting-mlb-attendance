@@ -4,17 +4,18 @@ library("dplyr")
 library("corrplot")
 library("caret")
 library("stats")
+library("MASS") 
 library("ggplot2")
 
 # Import dataframes
 # Data/SplitData/TrainingSet.csv
 # train_URL <- "INPUT CURRENT RAW LINK TO GITHUB URL TRAINING DATA HERE"
-# train_URL <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TrainingSet.csv?token=GHSAT0AAAAAAAACXGRYO2IHJQM3RTM57KLOZFYIS6Q"
+# train_URL <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TrainingSet.csv?token=GHSAT0AAAAAAAACXHOP7CJDWDO57DH3TDSUZFYZM6Q"
 train_df <- read_csv(url(train_URL)) # Selecting training dataframe
 
 # Data/SplitData/TestSet.csv
 # test_URL <- "INPUT CURRENT RAW LINK TO GITHUB URL TEST DATA HERE"
-# test_URL <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TestSet.csv?token=GHSAT0AAAAAAAACXGRZKJDLIJECMEHNVFVQZFYITIA"
+# test_URL <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/SplitData/TestSet.csv?token=GHSAT0AAAAAAAACXHOPDNXY6T4OXD6WMZDGZFYZLOA"
 test_df <- read_csv(url(test_URL)) # Selecting test dataframe
 
 # Filtering out COVID year, error columns
@@ -81,7 +82,8 @@ lm_model <- lm(y$Attendance~PC1+PC2+PC3+PC4+PC6,
 
 # Print summary of model
 summary(lm_model) # Generating summary for linear regression performance
-plot(lm_model)    # Generating plots for linear regression performance
+# par(mfrow=c(2,2))
+plot (lm_model)   # Generating plots for linear regression performance
 
 # Looking at transformed alphas
 rotations <- PCA$rotation[, c("PC1", "PC2", "PC3", "PC4", "PC6")] # Grabbing the rotation values from PCA
@@ -120,7 +122,7 @@ hist(residuals, col = "blue", main = "Residuals", xlab = "Residuals") # Normal d
 # Testing the data on new markets
 # Data/CSVData/cleaned_new_markets_data.csv
 # predict_url <- "INPUT CURRENT RAW LINK TO GITHUB URL NEW MARKET DATA HERE"
-# predict_url <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/CSVData/cleaned_new_markets_data.csv?token=GHSAT0AAAAAAAACXGRZBBNI5GCKMQRUUBBSZFYIURA"
+# predict_url <- "https://github.gatech.edu/raw/MGT-6203-Summer-2023-Canvas/Team-116/main/Data/CSVData/cleaned_new_markets_data.csv?token=GHSAT0AAAAAAAACXHOOW5DKCXTLSRO5LBY4ZFYZOWQ"
 predict_df <- read_csv(url(predict_url))
 
 # Filtering out COVID year, error columns
@@ -164,7 +166,7 @@ highest_projected_attendance <- predict_df_new %>%
   summarize(Projected_Average = mean(Predicted_Attendance))
 
 # Calculating Average Attendance per Game per New Market
-highest_projected_attendance$Projected_Average_Per_Game <- highest_projected_attendance$Projected_Average / 162
+highest_projected_attendance$Projected_Average_Per_Game <- highest_projected_attendance$Projected_Average / 81
 
 # Selecting Top 5 Project Markets
 head(highest_projected_attendance[order(highest_projected_attendance$Projected_Average, 
@@ -177,13 +179,15 @@ ggplot(data = highest_projected_attendance, aes(x = reorder(Market, -Projected_A
                                                 y = Projected_Average_Per_Game)) +
   geom_bar(stat = "identity", fill='red') +
   theme(axis.text.x = element_text(angle=90, size = 8)) +
-  labs(x = "Market", y = "Projected Attendance") 
+  labs(x = "Market", y = "Projected Attendance") +
+  ggtitle("Regression Results per Game")
 
 ggplot(data = highest_projected_attendance, aes(x = reorder(Market, -Projected_Average), 
                                                 y = Projected_Average)) +
   geom_bar(stat = "identity", fill='blue') +
   theme(axis.text.x = element_text(angle=90, size = 8)) +
-  labs(x = "Market", y = "Projected Attendance")
+  labs(x = "Market", y = "Projected Attendance") +
+  ggtitle("Regression Results")
 
 # Writing CSV File with Final Results
 #write.csv(highest_projected_attendance, "FILEPATH")
