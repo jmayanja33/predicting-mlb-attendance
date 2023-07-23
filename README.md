@@ -42,4 +42,6 @@ Predictions using this model for new market yearly attendance are made in `predi
 Analysis is performed in `attendance_xgboost_analysis.py` which creates tables and graphs (stored in `Visualizations`) that analyze predicted new market performance. Also calculates place scores, which are the sum of the placing of a market's attendance each year (ex, if a market placed first in attendance all 10 years, it's place score would be 10).
 
 ## Deep Learning Model
-Code Description
+All data in this section can be found in `Models/Attendance/Deep Learning`.
+
+The main file is 'Deep Learning Model.py' which creates a deep learning regression model. The script performs data preprocessing and creates a regression model with two hidden layers. It creates visualizations for model output and residuals in 'Visualizations'. Market predictions will also be output to 'Data/Predictions' as 'PredictedNewMarketsAttendanceDeepLearning.csv'.
