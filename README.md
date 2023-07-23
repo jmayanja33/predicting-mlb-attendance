@@ -1,4 +1,4 @@
-# Predicting MLB Attendance Based on Housing Income and Valuation Data
+# Predicting MLB Market Attendance with US Income and Housing Data
 Team 116:
 <br />Joshua Mayanja, Warren Spann, Anthony Palmieri, Yutai Liu, Jon Martin
 
