@@ -3,9 +3,9 @@ Team 116:
 <br />Joshua Mayanja, Warren Spann, Anthony Palmieri, Yutai Liu, Jon Martin
 
 ## Description
-This project attempts to predict yearly attendance for MLB markets based on housing and income data from the US census between the years of 2011-2021. The year 2020 was removed, as no fans were allowed at MLB games due to the COVID-19 pandemic.
+This project takes housing and income data from the US census and determines if it is possible to use it for predicting yearly attendance for an MLB market. The end goal was to provide recommendations for top expansion markets for the league as they begin to explore expansion into new markets. A multiple linear regression model, an extreme gradient boosted model (xgboost), and a deep learning model were created to explore this relationship. Two models provided very similar predictions and the xgboost model was selected as the final model to use for predictions, as it had a low margin of error and accounted for a lot of variance.  It was found that attendance could accurately be predicted from this data, with the top potential new markets being San Antonio, Oklahoma City, Charlotte, Portland (OR), and Indianapolis.
 
-All code can be found in the `Final Code` folder of this project.
+All code can be found in the `Final Code` folder of this project. A full paper on findings can be found in `Final Report` and slides can be found in `Final Presentation Slides`.
 
 ## Data
 All .py files in this section can be found in `Code/DataCleaning` and all csv data can be found in `Data/CSVData`. The required packages in python are pandas, numpy, pyyaml, zipfile36, and tqdm.
