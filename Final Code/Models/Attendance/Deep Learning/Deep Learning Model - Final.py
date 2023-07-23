@@ -58,15 +58,15 @@ predictions = pd.Series(predictions.reshape(-1))
 # print(test_y.head())
 
 # calculate residuals
-residuals = test_y - predictions
-
-# plot residuals
-plt.figure(figsize=(10,6))
-plt.scatter(test_y, residuals)
-plt.title('Residual Plot')
-plt.xlabel('Observed')
-plt.ylabel('Residuals')
-plt.show()
+# residuals = test_y - predictions
+#
+# # # plot residuals
+# plt.figure(figsize=(10,6))
+# plt.scatter(test_y, residuals)
+# plt.title('Residual Plot')
+# plt.xlabel('Observed')
+# plt.ylabel('Residuals')
+# plt.show()
 
 
 # Get metrics
@@ -76,6 +76,10 @@ print("Root Mean Squared Error: ", rmse)
 r2 = r2_score(test_y, predictions)
 print("R-squared: ", r2)
 
+n = test_y.shape[0]
+p = test_x.shape[1]
+adj_r2 = 1 - (((1 - r2) * (n - 1)) / (n - p - 1))
+print("Adjusted R-squared: ", adj_r2)
 
 
 # Bring in new markets
@@ -107,7 +111,7 @@ grouped_df = prediction_df.groupby('Market')['Prediction'].agg([lambda x: round(
 grouped_df.columns = ['Market', 'Average Game Attendance', 'Average Yearly Attendance', 'Median Yearly Attendance']
 grouped_df = grouped_df.sort_values(by=['Average Game Attendance', 'Average Yearly Attendance', 'Median Yearly Attendance'], ascending=False).reset_index(drop=True)
 print(grouped_df)
-grouped_df.to_csv('/Users/anthony_palmeri/PycharmProjects/Team-116/Data/Predictions/ResultsTable.csv')
+# grouped_df.to_csv('/Users/anthony_palmeri/PycharmProjects/Team-116/Code/Models/Attendance/Deep Learning/ResultsTable.csv')
 
 
 # Plot Market vs. Avg. Game Attendance
@@ -118,4 +122,5 @@ plt.xlabel("Market")
 plt.xticks(grouped_df["Market"], grouped_df["Market"], rotation=270)
 plt.ylabel("Average Game Attendance")
 plt.title("Current and New Market Average Game Attendance")
-plt.savefig("/Users/anthony_palmeri/PycharmProjects/Team-116/Visualizations/DeepLearningFullMarketPlot.png")
+# plt.savefig("/Users/anthony_palmeri/PycharmProjects/Team-116/Visualizations/DeepLearningFullMarketPlot.png")
+# plt.savefig("/Users/anthony_palmeri/Desktop/Georgia Tech/MGT 6203/Group Project/DeepLearningFullMarketPlot.png")
