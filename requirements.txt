@@ -7,5 +7,6 @@ zipfile36
 tqdm
 matplotlib
 scikit-optimize
-# dataframe-image
+dataframe-image
+keras
 tensorflow

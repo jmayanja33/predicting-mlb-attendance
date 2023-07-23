@@ -8,7 +8,7 @@ This project attempts to predict yearly attendance for MLB markets based on hous
 All code can be found in the `Final Code` folder of this project.
 
 ## Data
-All .py files in this section can be found in `Code/DataCleaning` and all csv data can be found in `Data/CSVData`.
+All .py files in this section can be found in `Code/DataCleaning` and all csv data can be found in `Data/CSVData`. The required packages in python are pandas, numpy, pyyaml, zipfile36, and tqdm.
 
 Three data sources were used for this project. One, `us_income_zipcode.csv` was a csv file of housing and income data from the US Census (Note that this file is in a zip folder due to the large file limit and will be extracted when `clean_data.py` is run). 
 
@@ -33,7 +33,7 @@ Predictions for this model have been saved in `Data/Predictions/PredictedNewMark
 Visualizations associated with analysis of the model and performance can be found `Visualizations/Regression`. Inside this folder are final model outputs and performance as well as predicted final results.
 
 ## XGBoost Model
-All data in this section can be found in `Models/Attendance/XGBoost`.
+All data in this section can be found in `Models/Attendance/XGBoost`. The required packages in python are pandas, numpy, scikit-learn, scikit-optimize, matplotlib, dataframe-image, and tqdm.
 
 The main file is `attendance_xgboost.py` which creates an XGBoost model. The script performs feature selection, cross validation to find the best model, and then trains a final model. It provides plots and tables for analysis in `Visualizatoins`, as well as `AttendanceXGBEval.txt` providing initial model stats. The model is then saved as `AttendanceXGBModel.json`.
 
